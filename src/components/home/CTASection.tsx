@@ -24,15 +24,17 @@ export default function CTASection() {
           
           <div className="flex flex-col sm:flex-row items-center gap-4 relative z-10 w-full lg:w-auto shrink-0">
             <PhoneButton 
-              className="w-full sm:w-auto px-8 py-4 bg-yellow-500 text-zinc-950 hover:bg-yellow-400 border-none hover:border-none" 
+              className="w-full sm:w-auto px-8 py-4 !bg-yellow-500 !text-zinc-950 hover:!bg-yellow-400 font-black text-lg border-none hover:border-none shadow-lg shadow-yellow-500/20" 
               variant="primary" 
             />
-            <Link 
-              href="/teklif-al" 
-              className="w-full sm:w-auto px-8 py-4 bg-zinc-800 text-white hover:bg-zinc-700 border border-zinc-600 hover:border-zinc-500 font-bold rounded-md transition-colors text-center inline-flex items-center justify-center"
+            <a 
+              href={`https://wa.me/905523676403?text=Merhaba,%20projem%20için%20ücretsiz%20keşif%20ve%20fiyat%20teklifi%20almak%20istiyorum.`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto px-8 py-4 bg-zinc-800 text-white hover:bg-zinc-700 border border-zinc-600 hover:border-zinc-500 font-bold rounded-md transition-colors text-center inline-flex items-center justify-center text-lg"
             >
-              Online Teklif İsteyin
-            </Link>
+              Hemen Teklif İste
+            </a>
           </div>
           
         </div>
