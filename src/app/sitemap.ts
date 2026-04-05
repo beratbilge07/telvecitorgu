@@ -17,6 +17,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/blog',
     '/iletisim',
     '/teklif-al',
+    '/kullanim-sartlari',
+    '/gizlilik-politikasi',
   ];
 
   corePages.forEach((path) => {
