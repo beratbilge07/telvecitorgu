@@ -46,6 +46,9 @@ export function generateBaseMetadata(overrides: Partial<Metadata> = {}): Metadat
     alternates: {
       canonical: SITE_CONFIG.url,
     },
+    verification: {
+      google: '20Z-P3i3r8r6IhtDtS71LNoa2_4d7OsLsb5vkGv_m1k',
+    },
     ...overrides,
   };
 }
