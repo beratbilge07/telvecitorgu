@@ -147,67 +147,115 @@ export default function Header() {
         </div>
       </header>
 
-      {/* Mobile Menu Overlay */}
+      {/* Premium Mobile Menu Drawer */}
+      {/* Backdrop */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 z-40 bg-zinc-50 lg:hidden overflow-y-auto pt-32 pb-32 px-5 shadow-2xl animate-in slide-in-from-top duration-300">
-          <nav className="flex flex-col gap-3">
+        <div 
+          className="fixed inset-0 z-40 bg-zinc-950/60 backdrop-blur-sm lg:hidden animate-in fade-in duration-300"
+          onClick={() => setIsMobileMenuOpen(false)}
+        ></div>
+      )}
+      
+      {/* Drawer */}
+      <div 
+        className={cn(
+          "fixed inset-y-0 right-0 z-50 w-full max-w-sm bg-white shadow-2xl lg:hidden transform transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] flex flex-col",
+          isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
+        )}
+      >
+        {/* Drawer Header */}
+        <div className="flex items-center justify-between p-5 border-b border-zinc-100">
+          <Link href="/" className="font-black text-2xl text-zinc-900 tracking-tighter" onClick={() => setIsMobileMenuOpen(false)}>
+            NOVA
+          </Link>
+          <button 
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="p-2.5 bg-zinc-100 text-zinc-600 hover:text-zinc-900 hover:bg-zinc-200 rounded-full transition-colors"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
+        </div>
+
+        {/* Drawer Body (Nav) */}
+        <div className="flex-1 overflow-y-auto py-6 px-5 scrollbar-hide">
+          <nav className="flex flex-col gap-1">
             {NAVIGATION.map((item) => (
-              <div key={item.href} className="border-b-2 border-zinc-200/60 last:border-0 pb-3 bg-white rounded-xl overflow-hidden shadow-sm">
-                <div className="flex items-center justify-between px-4">
+              <div key={item.href} className="border-b border-zinc-100 last:border-0 pb-1">
+                <div className="flex items-center justify-between py-1">
                   <Link 
                     href={item.href}
                     className={cn(
-                      "block py-4 text-xl font-black uppercase tracking-tight",
-                      pathname === item.href ? "text-yellow-600" : "text-zinc-900"
+                      "flex-1 py-3 text-lg font-bold uppercase tracking-wide transition-colors",
+                      pathname === item.href ? "text-yellow-600" : "text-zinc-700"
                     )}
+                    onClick={() => { if (!item.children) setIsMobileMenuOpen(false); }}
                   >
                     {item.label}
                   </Link>
                   {item.children && (
                     <button 
                       onClick={() => setActiveDropdown(activeDropdown === item.label ? null : item.label)}
-                      className="p-3 text-zinc-600 bg-zinc-100 hover:bg-zinc-200 rounded-lg font-bold transition-colors"
+                      className="p-3 text-zinc-400 hover:text-zinc-800 transition-colors"
                     >
-                      {activeDropdown === item.label ? '▲' : '▼'}
+                      <svg 
+                        xmlns="http://www.w3.org/2000/svg" 
+                        width="20" height="20" 
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+                        className={cn("transition-transform duration-300", activeDropdown === item.label ? "rotate-180 text-yellow-600" : "")}
+                      >
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                      </svg>
                     </button>
                   )}
                 </div>
                 
-                {item.children && activeDropdown === item.label && (
-                   <div className="px-4 pb-4 flex flex-col gap-2 bg-zinc-50 border-t-2 border-yellow-500 p-3">
-                     {item.children.map(child => (
-                       <Link 
-                         key={child.href}
-                         href={child.href}
-                         className={cn(
-                           "block py-3 px-4 text-base font-bold rounded-lg border border-transparent transition-colors",
-                           pathname === child.href ? "text-yellow-700 bg-yellow-100 border-yellow-200 shadow-inner" : "text-zinc-700 bg-white shadow-sm"
-                         )}
-                       >
-                         {child.label}
-                       </Link>
-                     ))}
+                {item.children && (
+                   <div 
+                     className={cn(
+                       "overflow-hidden transition-all duration-300 ease-in-out pl-4",
+                       activeDropdown === item.label ? "max-h-[500px] opacity-100 mb-4" : "max-h-0 opacity-0"
+                     )}
+                   >
+                     <div className="flex flex-col gap-1 border-l-2 border-yellow-500/30 pl-3">
+                       {item.children.map(child => (
+                         <Link 
+                           key={child.href}
+                           href={child.href}
+                           className={cn(
+                             "py-2.5 px-3 text-[15px] font-semibold rounded-lg transition-colors",
+                             pathname === child.href ? "text-yellow-700 bg-yellow-50/50" : "text-zinc-600 hover:text-yellow-600 hover:bg-zinc-50"
+                           )}
+                           onClick={() => setIsMobileMenuOpen(false)}
+                         >
+                           {child.label}
+                         </Link>
+                       ))}
+                     </div>
                    </div>
                 )}
               </div>
             ))}
           </nav>
-          
-          <div className="mt-10 flex flex-col gap-4 bg-zinc-950 p-6 rounded-2xl border-b-8 border-yellow-500 shadow-2xl">
-            <h4 className="text-white text-center text-sm font-bold uppercase tracking-wider mb-2 opacity-80">Online Destek & İletişim</h4>
+        </div>
+
+        {/* Drawer Footer (Actions) */}
+        <div className="p-5 border-t border-zinc-100 bg-zinc-50/80 mb-16 lg:mb-0">
+          <div className="flex flex-col gap-3">
             <a 
               href={`https://wa.me/${SITE_CONFIG.phoneClean}?text=Merhaba,%20projem%20için%20hızlı%20bir%20teklif%20almak%20istiyorum.`}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full text-center py-4 bg-yellow-500 text-zinc-950 hover:bg-yellow-400 font-black text-lg rounded-xl shadow-lg shadow-yellow-500/30 transition-all uppercase tracking-wide"
+              className="w-full text-center py-4 bg-yellow-500 text-zinc-950 hover:bg-yellow-400 font-extrabold text-[15px] rounded-xl shadow-[0_4px_14px_rgba(234,179,8,0.3)] transition-all uppercase tracking-widest"
             >
-              Hemen Teklif Al
+              Hemen Teklif İste
             </a>
-            <PhoneButton variant="outline" className="w-full py-4 text-white border-zinc-700 hover:bg-zinc-800 text-lg font-bold rounded-xl" />
-            <WhatsAppButton variant="outline" className="w-full py-4 text-white border-zinc-700 hover:bg-zinc-800 text-lg font-bold rounded-xl" />
+            <div className="grid grid-cols-2 gap-3">
+              <PhoneButton variant="primary" showText={false} className="w-full py-3.5 rounded-xl bg-zinc-900 border-none shadow-md" />
+              <WhatsAppButton variant="outline" showText={false} className="w-full py-3.5 rounded-xl border-zinc-300 hover:bg-zinc-100 text-zinc-800" />
+            </div>
           </div>
         </div>
-      )}
+      </div>
     </>
   );
 }

@@ -17,9 +17,9 @@ export default function HeroSection() {
           fetchPriority="high"
           className="object-cover object-center"
         />
-        {/* Dynamic dark gradient overlay for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-r from-zinc-950/95 via-zinc-950/80 to-zinc-950/40"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-zinc-900/40"></div>
+        {/* Dynamic dark gradient overlay for text readability - Lighter version */}
+        <div className="absolute inset-0 bg-gradient-to-r from-zinc-950/80 via-zinc-950/50 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-transparent to-transparent"></div>
       </div>
       
       {/* Decorative blurred spots */}
@@ -46,12 +46,14 @@ export default function HeroSection() {
           </h2>
           
           <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-            <Link 
-              href="/teklif-al"
+            <a 
+              href={`https://wa.me/${SITE_CONFIG.phoneClean}?text=Merhaba,%20panel%20çit%20ve%20tel%20örgü%20için%20hızlı%20fiyat%20almak%20istiyorum.`}
+              target="_blank"
+              rel="noopener noreferrer"
               className="w-full sm:w-auto px-8 py-4 bg-yellow-500 text-zinc-950 hover:bg-yellow-400 font-extrabold rounded-md transition-all text-center text-lg shadow-[0_0_30px_rgba(234,179,8,0.3)] hover:shadow-[0_0_40px_rgba(234,179,8,0.5)] transform hover:-translate-y-0.5"
             >
               Hemen Fiyat Alın
-            </Link>
+            </a>
             <Link 
               href={`https://wa.me/${SITE_CONFIG.phoneClean}?text=Merhaba,%20panel%20çit%20ve%20tel%20örgü%20için%20katalog%20alabilir%20miyim?`}
               target="_blank"
