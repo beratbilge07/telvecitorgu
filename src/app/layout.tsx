@@ -31,7 +31,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="tr" className={cn(inter.variable, "scroll-smooth")}>
-      <head>
+      <body className="min-h-screen flex flex-col bg-zinc-50 text-zinc-900 font-sans antialiased selection:bg-yellow-500/30">
+        {/* Google Ads (gtag.js) */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=AW-17797438640"
           strategy="afterInteractive"
@@ -44,8 +45,7 @@ export default function RootLayout({
             gtag('config', 'AW-17797438640');
           `}
         </Script>
-      </head>
-      <body className="min-h-screen flex flex-col bg-zinc-50 text-zinc-900 font-sans antialiased selection:bg-yellow-500/30">
+
         <Header />
         
         {/* Adds padding to account for fixed header */}
