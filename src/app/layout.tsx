@@ -4,6 +4,7 @@
 
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
+import Script from "next/script";
 import "@/app/globals.css";
 import { generateBaseMetadata } from "@/lib/metadata";
 import { cn } from "@/lib/utils";
@@ -30,6 +31,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="tr" className={cn(inter.variable, "scroll-smooth")}>
+      <head>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=AW-17797438640"
+          strategy="afterInteractive"
+        />
+        <Script id="google-ads-gtag" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'AW-17797438640');
+          `}
+        </Script>
+      </head>
       <body className="min-h-screen flex flex-col bg-zinc-50 text-zinc-900 font-sans antialiased selection:bg-yellow-500/30">
         <Header />
         
